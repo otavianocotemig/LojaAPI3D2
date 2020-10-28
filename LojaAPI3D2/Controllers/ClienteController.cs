@@ -34,5 +34,16 @@ namespace LojaAPI3D2.Controllers
             return listaClientes;
         }
 
+        // Metodo para Listar Cliente pelo Codigo
+        [AcceptVerbs("GET")]
+        [Route("listarClientesPorCodigo/{codigo}")]
+        public ClienteModel listarClientesPorCodigo(int codigo)
+        {
+            ClienteModel cliente = listaClientes.Where(n => n.Id_cliente == codigo)
+                                                .Select(n => n)
+                                                .FirstOrDefault();
+            return cliente;
+        }
+
     }
 }
