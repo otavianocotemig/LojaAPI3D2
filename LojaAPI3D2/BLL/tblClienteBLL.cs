@@ -84,16 +84,16 @@ namespace LojaAPI3D2.BLL
         // Metodo para Inserir Clientes
         public void InserirCliente(ClienteModel dtoCliente)
         {
-            string sql = string.Format($@"INSERT INTO tbl_cliente VALUES (NULL,'{dtoCliente.Nome_cliente}',
+            string sql = string.Format($@"INSERT INTO tbl_cliente VALUES ('{dtoCliente.id_cliente}','{dtoCliente.Nome_cliente}',
                                                                                '{dtoCliente.Sobrenome_cliente}',   
                                                                                '{dtoCliente.Email_cliente}');");
             daoBanco.executarComando(sql);
 
         }
         // Metodo para Excluir Cliente
-        public void ExcluirCliente(ClienteModel dtoCliente)
+        public void ExcluirCliente(int id_cliente)
         {
-            string sql = string.Format($@"DELETE FROM tbl_cliente where id_cliente = {dtoCliente.Id_cliente};");
+            string sql = string.Format($@"DELETE FROM tbl_cliente where id_cliente = {id_cliente};");
             daoBanco.executarComando(sql);
         }
     }
