@@ -11,6 +11,7 @@ namespace LojaAPI3D2.Models
         private string nome_cliente;
         private string sobrenome_cliente;
         private string email_cliente;
+        private string senha_cliente;
 
         public ClienteModel()
         {
@@ -29,5 +30,6 @@ namespace LojaAPI3D2.Models
         public string Nome_cliente { get => nome_cliente; set => nome_cliente = value; }
         public string Sobrenome_cliente { get => sobrenome_cliente; set => sobrenome_cliente = value; }
         public string Email_cliente { get => email_cliente; set => email_cliente = value; }
+        public string Senha_cliente { get => senha_cliente; set => senha_cliente = value; }
     }
 }

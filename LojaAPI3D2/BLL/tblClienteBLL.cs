@@ -13,9 +13,9 @@ namespace LojaAPI3D2.BLL
     {
         private DALMysql daoBanco = new DALMysql();
 
-        public Boolean Autenticar(string email,string senha)
+        public Boolean Autenticar(ClienteModel dtoCliente)
         {
-            string consulta = string.Format($@"select * from tbl_cliente where email_cliente = '{email}' and senha_cliente = '{senha}';");
+            string consulta = string.Format($@"select * from tbl_cliente where email_cliente = '{dtoCliente.Email_cliente}' and senha_cliente = '{dtoCliente.Senha_cliente}';");
             DataTable dt = daoBanco.executarConsulta(consulta);
             if (dt.Rows.Count == 1)
             {
@@ -55,14 +55,14 @@ namespace LojaAPI3D2.BLL
             }
         }
         // Metodo para Consultar os dados do Cliente
-        public DataTable ListarClientes(string email)
+        public DataTable ListarClientes(int id_cliente)
         {
-            string sql = string.Format($@"select * from tbl_cliente where email_cliente = '{email}';");
+            string sql = string.Format($@"select id_cliente,nome_cliente,sobrenome_cliente,email_cliente from tbl_cliente where id_cliente = '{id_cliente}';");
             return daoBanco.executarConsulta(sql);
         }
         public DataTable ListarClientes()
         {
-            string sql = string.Format($@"select * from tbl_cliente");
+            string sql = string.Format($@"select id_cliente,nome_cliente,sobrenome_cliente,email_cliente from tbl_cliente");
             return daoBanco.executarConsulta(sql);
         }
         // Metodo utilizado para Update na tabela Cliente
@@ -84,7 +84,8 @@ namespace LojaAPI3D2.BLL
         // Metodo para Inserir Clientes
         public void InserirCliente(ClienteModel dtoCliente)
         {
-            string sql = string.Format($@"INSERT INTO tbl_cliente VALUES ('{dtoCliente.id_cliente}','{dtoCliente.Nome_cliente}',
+            string sql = string.Format($@"INSERT INTO tbl_cliente(id_cliente,nome_cliente,sobrenome_cliente,email_cliente)
+                                                                                VALUES (null,'{dtoCliente.Nome_cliente}',
                                                                                '{dtoCliente.Sobrenome_cliente}',   
                                                                                '{dtoCliente.Email_cliente}');");
             daoBanco.executarComando(sql);
