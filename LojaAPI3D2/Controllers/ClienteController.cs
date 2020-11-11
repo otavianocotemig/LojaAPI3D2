@@ -15,8 +15,14 @@ namespace LojaAPI3D2.Controllers
     [RoutePrefix("api/cliente")]
     public class ClienteController : ApiController
     {
+        // Lista Provisória para Armazenar os clientes
+        private static List<ClienteModel> listaClientes = new List<ClienteModel>();
         tblClienteBLL bllCliente = new tblClienteBLL();
-        // Metodo para verificar se usuário existe
+
+
+         /// <summary>
+         ///  Verifica se Cliente Existe.
+        ///  </summary>
         [AcceptVerbs("POST")]
         [Route("verificarUsuario")]
         public Boolean verificarUsuario(ClienteModel cliente)
@@ -24,35 +30,37 @@ namespace LojaAPI3D2.Controllers
             return bllCliente.Autenticar(cliente);
         }
 
-
-        // Metodo para Cadastrar um Cliente
+         // Metodo para Cadastrar um Cliente
         [AcceptVerbs("POST")]
         [Route("cadastrarCliente")]
         public string cadastrarCliente(ClienteModel cliente)
         {
+            listaClientes.Add(cliente);
             bllCliente.InserirCliente(cliente);
             return "Cliente inserido com sucesso";
+
         }
         // Metodo para Listar todos os clientes do banco
         [AcceptVerbs("GET")]
         [Route("listarClientes")]
         public string listarClientes()
         {
-            DataTable dt = bllCliente.ListarClientes();
-            string jsonString = string.Empty;
-            jsonString = JsonConvert.SerializeObject(dt);
-            return jsonString;
+           DataTable dt = bllCliente.ListarClientes();
+           return   JsonConvert.SerializeObject(dt);
+          
+            //return listaClientes;
         }
 
         // Metodo para Listar Cliente pelo Codigo
         [AcceptVerbs("GET")]
         [Route("listarClientesPorCodigo/{codigo}")]
-        public string listarClientesPorCodigo(int codigo)
+        public List<ClienteModel> listarClientesPorCodigo(int codigo)
         {
             DataTable dt = bllCliente.ListarClientes(codigo);
             string jsonString = string.Empty;
-            jsonString = JsonConvert.SerializeObject(dt);
-            return jsonString;
+            jsonString = JsonConvert.SerializeObject(dt, Formatting.Indented);
+            // return jsonString;
+            return listaClientes;
         }
 
         //Metodo para Excluir Cliente
