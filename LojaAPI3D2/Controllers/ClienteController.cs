@@ -43,12 +43,12 @@ namespace LojaAPI3D2.Controllers
         // Metodo para Listar todos os clientes do banco
         [AcceptVerbs("GET")]
         [Route("listarClientes")]
-        public string listarClientes()
+        public List<ClienteModel> listarClientes()
         {
-           DataTable dt = bllCliente.ListarClientes();
-           return   JsonConvert.SerializeObject(dt);
+          // DataTable dt = bllCliente.ListarClientes();
+          // return   JsonConvert.SerializeObject(dt);
           
-            //return listaClientes;
+           return listaClientes;
         }
 
         // Metodo para Listar Cliente pelo Codigo
